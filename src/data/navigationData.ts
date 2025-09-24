@@ -1,0 +1,35 @@
+// Navigation data and display names
+export const navigationData = {
+  displayNames: {
+    profile: { en: 'Profile', bn: 'প্রোফাইল' },
+    education: { en: 'Education', bn: 'শিক্ষা' },
+    courses: { en: 'Courses', bn: 'কোর্স' },
+    experience: { en: 'Experience', bn: 'অভিজ্ঞতা' },
+    certificates: { en: 'Certificates', bn: 'সার্টিফিকেট' },
+    skills: { en: 'Skills', bn: 'দক্ষতা' },
+    family: { en: 'Family', bn: 'পরিবার' },
+    contact: { en: 'Contact', bn: 'যোগাযোগ' },
+    research: { en: 'Research', bn: 'গবেষণা' },
+    blog: { en: 'Blog', bn: 'ব্লগ' },
+    'social-links': { en: 'Social', bn: 'সামাজিক' },
+    home: { en: 'Home', bn: 'হোম' },
+  },
+  iconColors: {
+    profile: 'text-indigo-500',
+    education: 'text-blue-500',
+    courses: 'text-emerald-500',
+    experience: 'text-amber-500',
+    certificates: 'text-red-500',
+    skills: 'text-purple-500',
+    family: 'text-pink-500',
+    contact: 'text-cyan-500',
+    research: 'text-blue-600',
+    blog: 'text-purple-600',
+    'social-links': 'text-teal-500',
+  },
+  labels: {
+    openMenu: { en: 'Open menu', bn: 'মেনু খুলুন' },
+    closeMenu: { en: 'Close menu', bn: 'মেনু বন্ধ করুন' },
+    toggleLanguage: { en: 'Toggle language', bn: 'ভাষা পরিবর্তন' },
+  },
+};

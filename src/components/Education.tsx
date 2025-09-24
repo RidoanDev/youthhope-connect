@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Element } from 'react-scroll';
-import { GraduationCap, School, ExternalLink, BookOpen } from 'lucide-react';
+import { ExternalLink, BookOpen } from 'lucide-react';
+import { educationData } from '../data/educationData';
 
 interface EducationProps {
   language: 'en' | 'bn';
@@ -50,69 +51,17 @@ const PremiumSection = ({ children, title, icon, theme = 'emerald', className = 
 };
 
 const Education = ({ language }: EducationProps) => {
-  const educationHistory = [
-    {
-      id: 'hsc',
-      title: {
-        en: 'Higher Secondary Certificate (HSC)',
-        bn: 'উচ্চ মাধ্যমিক সার্টিফিকেট (এইচএসসি)',
-      },
-      institution: {
-        en: 'KARATOA MULTIMEDIA SCHOOL AND COLLEGE',
-        bn: 'করতোয়া মাল্টিমিডিয়া স্কুল অ্যান্ড কলেজ',
-      },
-      duration: {
-        en: '2023-2024',
-        bn: '২০২৩-২০২৪',
-      },
-      gpa: {
-        en: 'GPA: 5.00/5.00 (Predicted)',
-        bn: 'জিপিএ: ৫.০০/৫.০০ (আনুমানিক)',
-      },
-      details: {
-        en: ['Group: Science', 'Major: Higher Math'],
-        bn: ['গ্রুপ: বিজ্ঞান', 'মেজর: উচ্চতর গণিত'],
-      },
-      link: 'https://g.co/kgs/WZW688y',
-      icon: <GraduationCap size={20} className="text-blue-500" />,
-    },
-    {
-      id: 'ssc',
-      title: {
-        en: 'Secondary School Certificate (SSC)',
-        bn: 'মাধ্যমিক স্কুল সার্টিফিকেট (এসএসসি)',
-      },
-      institution: {
-        en: 'DHUNAT GOVT N.U. PILOT MODEL HIGH SCHOOL',
-        bn: 'ধুনট সরকারি এন. ইউ. পাইলট মডেল উচ্চ বিদ্যালয়',
-      },
-      duration: {
-        en: '2021-2022',
-        bn: '২০২১-২০২২',
-      },
-      gpa: {
-        en: 'GPA: 5.00/5.00',
-        bn: 'জিপিএ: ৫.০০/৫.০০',
-      },
-      details: {
-        en: ['Group: Science', 'Major: Higher Math'],
-        bn: ['গ্রুপ: বিজ্ঞান', 'মেজর: উচ্চতর গণিত'],
-      },
-      link: 'https://g.co/kgs/W57Ts2o',
-      icon: <School size={20} className="text-green-500" />,
-    },
-  ];
 
   return (
     <Element name="education">
       <PremiumSection
-        title={language === 'en' ? 'Education' : 'শিক্ষা'}
+        title={educationData.title[language]}
         icon={<BookOpen className="text-white" size={24} />}
         theme="emerald"
       >
 
         <div className="space-y-6">
-          {educationHistory.map((education) => (
+          {educationData.educationHistory.map((education) => (
             <motion.div
               key={education.id}
               initial={{ y: 20, opacity: 0 }}
@@ -123,7 +72,7 @@ const Education = ({ language }: EducationProps) => {
             >
               <div className="flex items-start gap-4">
                 <div className="p-3 bg-emerald-100 rounded-full group-hover:bg-emerald-200 transition-colors flex-shrink-0 shadow-sm">
-                  {education.icon}
+                  <education.icon size={20} className={education.iconColor} />
                 </div>
                 <div className="flex-1">
                   <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1">
