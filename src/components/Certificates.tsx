@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, Expand, Minimize, Loader2, FileBadge } from 'lucide-react';
 import { Element } from 'react-scroll';
+import { certificatesData } from '../data/certificatesData';
 
 interface Certificate {
   title: {
@@ -261,7 +262,7 @@ const CertificateSlider = ({ certificates, language }: CertificateSliderProps) =
       <div className="w-full h-[60vw] sm:h-[50vw] max-h-[400px] min-h-[250px] flex items-center justify-center bg-gray-100 rounded-lg">
         <div className="flex flex-col items-center gap-3">
           <Loader2 className="w-8 h-8 text-gray-500 animate-spin" />
-          <span className="text-gray-600 text-sm sm:text-base">Loading certificates...</span>
+          <span className="text-gray-600 text-sm sm:text-base">{certificatesData.loading[language]}</span>
         </div>
       </div>
     );
@@ -301,7 +302,7 @@ const CertificateSlider = ({ certificates, language }: CertificateSliderProps) =
               <div className="w-full h-full flex items-center justify-center bg-gray-200 rounded-lg">
                 <div className="text-center p-4">
                   <div className="text-gray-600 font-medium mb-2">
-                    Certificate image unavailable offline
+                    {certificatesData.error[language]}
                   </div>
                   <div className="text-sm text-gray-500">
                     {certificates[currentIndex].title[language]}
@@ -367,7 +368,7 @@ const CertificateSlider = ({ certificates, language }: CertificateSliderProps) =
                 onClick={() => window.open(certificates[currentIndex].image, '_blank')}
                 className="px-3 py-1 bg-green-100 text-green-700 text-xs sm:text-sm rounded-full hover:bg-green-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
               >
-                {language === 'en' ? 'Verify Certificate' : 'সার্টিফিকেট যাচাই করুন'}
+                {certificatesData.verification[language]}
               </button>
             </div>
 
@@ -421,15 +422,14 @@ const CertificateSlider = ({ certificates, language }: CertificateSliderProps) =
 
 interface CertificateSectionProps {
   language: 'en' | 'bn';
-  content: any;
   certificates: any[];
 }
 
-const CertificateSection = ({ language, content, certificates }: CertificateSectionProps) => {
+const CertificateSection = ({ language, certificates }: CertificateSectionProps) => {
   return (
     <Element name="certificates">
       <PremiumSection
-        title={content[language].certifications}
+        title={certificatesData.title[language]}
         icon={<FileBadge className="text-white" size={24} />}
         theme="emerald"
       >

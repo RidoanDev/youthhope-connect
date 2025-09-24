@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Menu, X, Languages, UserCircle } from 'lucide-react';
 import { cn } from '../lib/utils';
+import { navigationData } from '../data/navigationData';
 
 interface NavigationProps {
   navigationItems: Array<{
@@ -40,38 +41,11 @@ const Navigation = ({
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const getIconColor = (id: string): string => {
-    const colors: Record<string, string> = {
-      profile: 'text-indigo-500',
-      education: 'text-blue-500',
-      courses: 'text-emerald-500',
-      experience: 'text-amber-500',
-      certificates: 'text-red-500',
-      skills: 'text-purple-500',
-      family: 'text-pink-500',
-      contact: 'text-cyan-500',
-      research: 'text-blue-600',
-      blog: 'text-purple-600',
-      'social-links': 'text-teal-500',
-    };
-    return colors[id] || 'text-gray-500';
+    return navigationData.iconColors[id as keyof typeof navigationData.iconColors] || 'text-gray-500';
   };
 
   const getDisplayName = (id: string) => {
-    const names: Record<string, { en: string; bn: string }> = {
-      profile: { en: 'Profile', bn: 'প্রোফাইল' },
-      education: { en: 'Education', bn: 'শিক্ষা' },
-      courses: { en: 'Courses', bn: 'কোর্স' },
-      experience: { en: 'Experience', bn: 'অভিজ্ঞতা' },
-      certificates: { en: 'Certificates', bn: 'সার্টিফিকেট' },
-      skills: { en: 'Skills', bn: 'দক্ষতা' },
-      family: { en: 'Family', bn: 'পরিবার' },
-      contact: { en: 'Contact', bn: 'যোগাযোগ' },
-      research: { en: 'Research', bn: 'গবেষণা' },
-      blog: { en: 'Blog', bn: 'ব্লগ' },
-      'social-links': { en: 'Social', bn: 'সামাজিক' },
-      home: { en: 'Home', bn: 'হোম' },
-    };
-    return names[id]?.[language] || id.charAt(0).toUpperCase() + id.slice(1);
+    return navigationData.displayNames[id as keyof typeof navigationData.displayNames]?.[language] || id.charAt(0).toUpperCase() + id.slice(1);
   };
 
   const isActive = (id: string) => {
@@ -108,7 +82,7 @@ const Navigation = ({
             <button
               onClick={toggleMenu}
               className="lg:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 focus:outline-none transition-colors duration-150"
-              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-label={isMenuOpen ? navigationData.labels.closeMenu[language] : navigationData.labels.openMenu[language]}
             >
               {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -159,7 +133,7 @@ const Navigation = ({
               'focus:outline-none focus:ring-2 focus:ring-purple-200',
               'bg-purple-50 hover:bg-purple-100'
             )}
-            aria-label="Toggle language"
+            aria-label={navigationData.labels.toggleLanguage[language]}
           >
             <Languages size={18} />
           </button>

@@ -172,7 +172,6 @@ function App() {
               <Element name="certificates">
                 <Certificates
                   language={language}
-                  content={content}
                   certificates={certificates}
                 />
               </Element>

@@ -1,14 +1,7 @@
 import { motion } from 'framer-motion';
 import { Element } from 'react-scroll';
-import {
-  Award,
-  Languages,
-  Target,
-  MessageSquare,
-  PlusCircle,
-  Star,
-  ChevronRight,
-} from 'lucide-react';
+import { Award } from 'lucide-react';
+import { skillsData } from '../data/skillsData';
 import SectionHeader from './ui/SectionHeader';
 
 interface SkillsProps {
@@ -57,77 +50,6 @@ const PremiumSection = ({ children, title, icon, theme = 'purple', className = '
 };
 
 const Skills = ({ language }: SkillsProps) => {
-  const skillsData = {
-    languages: {
-      title: {
-        en: 'Languages',
-        bn: 'ভাষা',
-      },
-      skills: [
-        {
-          name: {
-            en: 'Bengali (Fluent)',
-            bn: 'বাংলা (সাবলীল)',
-          },
-          level: 5,
-        },
-        {
-          name: {
-            en: 'English (Professional)',
-            bn: 'ইংরেজি (পেশাদার)',
-          },
-          level: 4,
-        },
-      ],
-    },
-    professional: {
-      title: {
-        en: 'Core Professional Skills',
-        bn: 'মূল পেশাদার দক্ষতা',
-      },
-      skills: [
-        { en: 'MS Office Suite', bn: 'এমএস অফিস' },
-        { en: 'Email Communication', bn: 'ইমেইল যোগাযোগ' },
-        { en: 'Team Collaboration', bn: 'দলগত সমন্বয়' },
-        { en: 'Time Management', bn: 'সময় ব্যবস্থাপনা' },
-        { en: 'Problem Solving', bn: 'সমস্যা সমাধান' },
-        { en: 'Professional Ethics', bn: 'পেশাদার নীতি' },
-      ],
-      color: 'bg-green-100',
-      hoverColor: 'hover:bg-green-200',
-      iconColor: 'text-green-600',
-    },
-    communication: {
-      title: {
-        en: 'Communication Skills',
-        bn: 'যোগাযোগ দক্ষতা',
-      },
-      skills: [
-        { en: 'Report Writing', bn: 'রিপোর্ট লেখা' },
-        { en: 'Active Listening', bn: 'সক্রিয় শোনা' },
-        { en: 'Presentation', bn: 'প্রেজেন্টেশন' },
-        { en: 'Professional Email', bn: 'পেশাদার ইমেইল' },
-      ],
-      color: 'bg-blue-100',
-      hoverColor: 'hover:bg-blue-200',
-      iconColor: 'text-blue-600',
-    },
-    additional: {
-      title: {
-        en: 'Additional Skills',
-        bn: 'অতিরিক্ত দক্ষতা',
-      },
-      skills: [
-        { en: 'Canva/Photoshop', bn: 'ক্যানভা/ফটোশপ' },
-        { en: 'Social Media', bn: 'সোশ্যাল মিডিয়া' },
-        { en: 'Web and App Development', bn: 'ওয়েব এবং এ্যাপ ডেভেলপমেন্ট' },
-        { en: 'The concept of AI', bn: 'AI এর ধারণা' },
-      ],
-      color: 'bg-purple-100',
-      hoverColor: 'hover:bg-purple-200',
-      iconColor: 'text-purple-600',
-    },
-  };
 
   const renderLanguageSkill = (skill: any, index: number) => (
     <motion.div
@@ -140,12 +62,12 @@ const Skills = ({ language }: SkillsProps) => {
     >
       <div className="flex justify-between items-center mb-1">
         <span className="text-gray-700 group-hover:text-gray-900 transition-colors flex items-center gap-1">
-          <ChevronRight size={14} className="text-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+          <skillsData.icons.ChevronRight size={14} className="text-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity" />
           {skill.name[language]}
         </span>
         <div className="flex">
           {[1, 2, 3, 4, 5].map((i) => (
-            <Star
+            <skillsData.icons.Star
               key={i}
               size={16}
               className={`${
@@ -179,7 +101,7 @@ const Skills = ({ language }: SkillsProps) => {
       transition={{ duration: 0.3, delay: index * 0.05 }}
       className={`${section.color} ${section.hoverColor} p-3 rounded-lg hover:shadow-md transition-all duration-300 flex items-center gap-2`}
     >
-      <ChevronRight size={14} className={`${section.iconColor} opacity-70`} />
+      <skillsData.icons.ChevronRight size={14} className={`${section.iconColor} opacity-70`} />
       {skill[language]}
     </motion.div>
   );
@@ -187,7 +109,7 @@ const Skills = ({ language }: SkillsProps) => {
   return (
     <Element name="skills">
       <PremiumSection
-        title={language === 'en' ? 'Skills & Competencies' : 'দক্ষতা ও সক্ষমতা'}
+        title={skillsData.title[language]}
         icon={<Award className="text-white" size={24} />}
         theme="purple"
       >
@@ -202,7 +124,7 @@ const Skills = ({ language }: SkillsProps) => {
           >
             <h3 className="font-bold text-lg flex items-center gap-3 mb-4 text-gray-700">
               <div className="p-2 bg-blue-100 rounded-lg">
-                <Languages size={20} className="text-blue-600" />
+                <skillsData.languages.icon size={20} className={skillsData.languages.iconColor} />
               </div>
               {skillsData.languages.title[language]}
             </h3>
@@ -226,13 +148,7 @@ const Skills = ({ language }: SkillsProps) => {
             >
               <h3 className="font-bold text-lg flex items-center gap-3 mb-4 text-gray-700">
                 <div className={`p-2 ${section.color} rounded-lg`}>
-                  {sectionIndex === 0 ? (
-                    <Target size={20} className={section.iconColor} />
-                  ) : sectionIndex === 1 ? (
-                    <MessageSquare size={20} className={section.iconColor} />
-                  ) : (
-                    <PlusCircle size={20} className={section.iconColor} />
-                  )}
+                  <section.icon size={20} className={section.iconColor} />
                 </div>
                 {section.title[language]}
               </h3>

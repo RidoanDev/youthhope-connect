@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion';
 import { Element } from 'react-scroll';
-import { Mail, Phone, MapPin, Linkedin, ExternalLink, Send, CheckCircle } from 'lucide-react';
+import { ExternalLink, Send, CheckCircle, Mail } from 'lucide-react';
 import { useState } from 'react';
+import { contactData } from '../data/contactData';
 import SectionHeader from './ui/SectionHeader';
 
 interface ContactProps {
@@ -56,73 +57,6 @@ const Contact = ({ language }: ContactProps) => {
     message: '',
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const contactData = {
-    title: {
-      en: 'Contact',
-      bn: 'যোগাযোগ',
-    },
-    form: {
-      name: {
-        en: 'Your Name',
-        bn: 'আপনার নাম',
-      },
-      subject: {
-        en: 'Subject',
-        bn: 'বিষয়',
-      },
-      message: {
-        en: 'Compose email',
-        bn: 'ইমেল লিখুন',
-      },
-      submit: {
-        en: 'Send Message',
-        bn: 'বার্তা পাঠান',
-      },
-      success: {
-        en: 'Message sent successfully!',
-        bn: 'বার্তা সফলভাবে পাঠানো হয়েছে!',
-      },
-    },
-    items: [
-      {
-        icon: <Mail size={20} className="text-green-700" />,
-        content: {
-          en: 'ridoan.zisan@gmail.com',
-          bn: 'ridoan.zisan@gmail.com',
-        },
-        link: 'mailto:ridoan.zisan@gmail.com',
-        isExternal: false,
-      },
-      {
-        icon: <Phone size={20} className="text-green-700" />,
-        content: {
-          en: '+8801712525910',
-          bn: '+৮৮০১৭১২৫২৫৯১০',
-        },
-        link: 'tel:+8801712525910',
-        isExternal: false,
-      },
-      {
-        icon: <MapPin size={20} className="text-green-700" />,
-        content: {
-          en: 'Bogura, Bangladesh',
-          bn: 'বগুড়া, বাংলাদেশ',
-        },
-        link: 'https://maps.app.goo.gl/EV2Yob73hVp2KKpQ8',
-        isExternal: true,
-      },
-      {
-        icon: <Linkedin size={20} className="text-green-700" />,
-        content: {
-          en: 'LinkedIn Profile',
-          bn: 'লিঙ্কডইন প্রোফাইল',
-        },
-        link: 'https://linkedin.com/in/ridoan-zisan',
-        isExternal: true,
-      },
-    ],
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -193,7 +127,7 @@ const Contact = ({ language }: ContactProps) => {
                   whileHover={{ x: 10 }}
                   className="flex items-center gap-3 sm:gap-4 mb-3 sm:mb-4 last:mb-0"
                 >
-                  <span>{item.icon}</span>
+                  <item.icon size={20} className={item.iconColor} />
                   {item.isExternal ? (
                     <a
                       href={item.link}

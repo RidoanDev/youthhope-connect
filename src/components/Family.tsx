@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Element } from 'react-scroll';
-import { Heart, ExternalLink } from 'lucide-react';
+import { ExternalLink, Heart } from 'lucide-react';
+import { familyData } from '../data/familyData';
 import SectionHeader from './ui/SectionHeader';
 
 interface InformationProps {
@@ -50,69 +51,11 @@ const PremiumSection = ({ children, title, icon, theme = 'red', className = '' }
 };
 
 const Information = ({ language, age }: InformationProps) => {
-  const familyData = {
-    familyInfo: {
-      title: {
-        en: 'Family Information',
-        bn: 'পারিবারিক তথ্য',
-      },
-      members: [
-        {
-          relation: { en: 'Father', bn: 'পিতা' },
-          name: { en: 'Md Rokibul Hasan Shekh', bn: 'মো রকিবুল হাসান সেখ' },
-          link: 'https://drive.google.com/file/d/1QoS1c0Wo39AtjBK4s-SS9sR7lxaMCEpr/view?usp=drivesdk',
-        },
-        {
-          relation: { en: 'Mother', bn: 'মাতা' },
-          name: { en: 'Mst. Zosna Khatun', bn: 'মোছা. জোসনা খাতুন' },
-          link: 'https://drive.google.com/file/d/1Qj3JdVJu1mNzSkZ9l0ofPYKS-B3rOFG3/view?usp=drivesdk',
-        },
-        {
-          relation: { en: 'Siblings', bn: 'ভাইবোন' },
-          name: { en: 'Raisa Jannat (Younger)', bn: 'রাইসা জান্নাত' },
-          link: 'https://drive.google.com/file/d/1QkgYSEZqGRfOSTg3qSRuIL5mP6t5Gfqs/view?usp=drivesdk',
-        },
-      ],
-    },
-    personalInfo: {
-      title: {
-        en: 'Personal Information',
-        bn: 'ব্যক্তিগত তথ্য',
-      },
-      details: [
-        {
-          label: { en: 'Date of Birth', bn: 'জন্ম তারিখ' },
-          value: { en: '31 December, 2007', bn: '৩১ ডিসেম্বর ২০০৭' },
-          link: 'https://drive.google.com/file/d/1Q_nVUU1-cJ8bXF-RwoI8kh8ojz3I7ITq/view?usp=drivesdk',
-        },
-        {
-          label: { en: 'Age', bn: 'বয়স' },
-          value: { en: `${age} years`, bn: `${age} বছর` },
-          link: null,
-        },
-        {
-          label: { en: 'Blood Group', bn: 'রক্তের গ্রুপ' },
-          value: { en: 'B+', bn: 'বি+' },
-          link: 'https://drive.google.com/file/d/1QXyH-GK_4FJoWeOZDGnZer4UDBfoK_0B/view?usp=drivesdk',
-        },
-        {
-          label: { en: 'Nationality', bn: 'জাতীয়তা' },
-          value: { en: 'Bangladeshi', bn: 'বাংলাদেশী' },
-          link: null,
-        },
-        {
-          label: { en: 'Religion', bn: 'ধর্ম' },
-          value: { en: 'Humanity', bn: 'মানবধর্ম' },
-          link: null,
-        },
-      ],
-    },
-  };
 
   return (
     <Element name="family">
       <PremiumSection
-        title={language === 'en' ? 'Family & Personal Information' : 'পারিবারিক ও ব্যক্তিগত তথ্য'}
+        title={familyData.title[language]}
         icon={<Heart className="text-white" size={24} />}
         theme="red"
       >
@@ -169,7 +112,10 @@ const Information = ({ language, age }: InformationProps) => {
                   <span className="font-semibold">
                     {detail.label[language]}:
                   </span>{' '}
-                  {detail.value[language]}
+                  {detail.label[language] === (language === 'en' ? 'Age' : 'বয়স') 
+                    ? `${age} ${language === 'en' ? 'years' : 'বছর'}`
+                    : detail.value && detail.value[language]
+                  }
                   {detail.link && (
                     <a
                       href={detail.link}
