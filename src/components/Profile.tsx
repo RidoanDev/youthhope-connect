@@ -3,15 +3,15 @@ import { Download, ScrollText, Search, PenTool } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { motion } from 'framer-motion';
 
+import { profileData } from '../data/profileData';
+
 interface ProfileProps {
   language: 'en' | 'bn';
-  content: any;
   scrollToSection: (section: string) => void;
 }
 
 const Profile = ({
   language,
-  content,
   scrollToSection,
 }: ProfileProps) => {
   return (
@@ -82,13 +82,13 @@ const Profile = ({
             >
               <div>
                 <h1 className="text-3xl md:text-4xl font-bold mb-3 text-slate-800">
-                  {content[language].name}
+                  {profileData[language].name}
                 </h1>
                 <p className="text-lg md:text-xl mb-4 text-slate-600 font-medium">
-                  {content[language].role}
+                  {profileData[language].role}
                 </p>
                 <p className="text-base max-w-2xl mx-auto lg:mx-0 mb-6 text-slate-600 leading-relaxed">
-                  {content[language].statement}
+                  {profileData[language].statement}
                 </p>
               </div>
 
@@ -112,7 +112,7 @@ const Profile = ({
                   whileTap={{ scale: 0.98 }}
                 >
                   <Download size={18} />
-                  {content[language].downloadCV}
+                  {profileData[language].downloadCV}
                 </motion.a>
                 <motion.button
                   onClick={() => scrollToSection('certificates')}
@@ -126,7 +126,7 @@ const Profile = ({
                   whileTap={{ scale: 0.98 }}
                 >
                   <ScrollText size={18} />
-                  {content[language].certifications}
+                  {profileData[language].certifications}
                 </motion.button>
                 <motion.button
                   onClick={() => scrollToSection('research')}
