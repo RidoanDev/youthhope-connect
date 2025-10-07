@@ -8,7 +8,7 @@ import Contact from './components/Contact';
 import Courses from './components/Courses';
 import Education from './components/Education';
 import Experience from './components/Experience';
-import { FloatingMenu } from './components/FloatingMenu';
+import FloatingMenu from './components/FloatingMenu';
 import Footer from './components/Footer';
 import Family from './components/Family';
 import Navigation from './components/Navigation';
@@ -146,6 +146,7 @@ function App() {
             <Element name="profile">
               <Profile
                 language={language}
+                content={content as any}
                 scrollToSection={scrollToSection}
               />
             </Element>
@@ -219,6 +220,7 @@ function App() {
 
       {/* Professional Floating Menu */}
       <FloatingMenu 
+        activeSection={activeSection}
         scrollToSection={scrollToSection}
         language={language}
       />
