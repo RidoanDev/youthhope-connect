@@ -74,12 +74,12 @@ export const LiveChat = () => {
       lowerInput.includes('zisan') ||
       lowerInput.includes('ridoan')
     ) {
-      return `I was created by Md Ridoan Mahmud Zisan, a passionate web developer and student from Bogura, Bangladesh. 
+      return `I was created by Md Ridoan Mahmud Zisan, a Self-Driven Web Developer & IT Specialist from Bogura, Bangladesh. 
       \n\nHere's some info about him:
-      \n- 📫 Contact: ridoan.zisan@gmail.com
+      \n- 📫 Email: ridoan.zisan@gmail.com
       \n- 📞 Phone: +8801712525910
       \n- 📍 Location: Bogura, Bangladesh
-      \n- 🔗 LinkedIn: https://linkedin.com/in/ridoan2007
+      \n- 🔗 LinkedIn: https://linkedin.com/in/ridoan-zisan
       \n- 🩸 Blood Group: B+
       \n- 🎂 Date of Birth: December 31, 2007
       \n- 🌐 Religion: Humanity`;
@@ -94,16 +94,17 @@ export const LiveChat = () => {
     ) {
       return `Md Ridoan Mahmud Zisan's Education:
       \n🎓 Higher Secondary Certificate (HSC)
-      \n- Institution: Karatoa Multimedia School and College
+      \n- Institution: KARATOA MULTIMEDIA SCHOOL AND COLLEGE
       \n- Year: 2023-2024
-      \n- GPA: 5.00/5.00 (Science)
-      \n- Major: Higher Mathematics
-      \n\n🎓 Secondary School Certificate (SSC)
-      \n- Institution: Dhunat Govt N.U. Pilot Model High School
-      \n- Year: 2021-2022
-      \n- GPA: 5.00/5.00 (Science)
+      \n- GPA: 4.25/5.00
       \n- Group: Science
-      \n- Major: Higher Mathematics`;
+      \n- Major: Higher Math
+      \n\n🎓 Secondary School Certificate (SSC)
+      \n- Institution: DHUNAT GOVT N.U. PILOT MODEL HIGH SCHOOL
+      \n- Year: 2021-2022
+      \n- GPA: 5.00/5.00
+      \n- Group: Science
+      \n- Major: Higher Math`;
     }
 
     // Skills information
@@ -114,10 +115,11 @@ export const LiveChat = () => {
       lowerInput.includes('ability')
     ) {
       return `Md Ridoan Mahmud Zisan's Skills:
-      \n💻 Technical Skills:
-      \n- Web Development (HTML, CSS, JavaScript)
-      \n- React.js, Firebase
-      \n- AI & Machine Learning basics
+      \n💻 Additional Skills:
+      \n- Canva/Photoshop
+      \n- Social Media
+      \n- Web and App Development
+      \n- The concept of AI
       \n\n🗣️ Language Skills:
       \n- Bengali (Fluent)
       \n- English (Professional)
@@ -128,11 +130,11 @@ export const LiveChat = () => {
       \n- Time Management
       \n- Problem Solving
       \n- Professional Ethics
-      \n\n🎨 Additional Skills:
-      \n- Canva/Photoshop
-      \n- Social Media Management
-      \n- Customer Service
-      \n- Basic Troubleshooting`;
+      \n\n💬 Communication Skills:
+      \n- Report Writing
+      \n- Active Listening
+      \n- Presentation
+      \n- Professional Email`;
     }
 
     // Projects information
@@ -143,18 +145,23 @@ export const LiveChat = () => {
       lowerInput.includes('developed')
     ) {
       return `Md Ridoan Mahmud Zisan's Notable Projects:
-      \n🩸 BOBDO (Bogura Online Blood Donation Organization)
-      \n- React + Firebase blood management system
-      \n- Real-time donor database
-      \n- Serves 68k+ community members
-      \n- Reduced response time by 40%
-      \n- Link: https://bobdo.netlify.app
+      \n🩸 BOBDO
+      \n- Online blood donation website and web app
+      \n- Built blood donor platform serving 68k+ community members
+      \n- Implemented digital system reducing response time by 40%
+      \n- Link: https://bobdo.vercel.app
+      \n\n🌐 YouthHopeBD
+      \n- Platform for youth development and social services
+      \n- Link: https://youth-hope.netlify.app
+      \n\n🛒 ZupraMart
+      \n- All in one shopping platform
+      \n- All daily necessities available including website source code
+      \n- Link: https://zupramart.netlify.app
       \n\n📐 UniConverter
       \n- Unit converter supporting 50+ measurement categories
-      \n- Progressive Web App (PWA) functionality
       \n- Link: https://uniconverter.netlify.app
       \n\n💻 DevHub
-      \n- Portfolio showcasing all projects
+      \n- My all projects showcase
       \n- Link: https://devhub-i.netlify.app`;
     }
 
@@ -168,16 +175,25 @@ export const LiveChat = () => {
     ) {
       return `Md Ridoan Mahmud Zisan's Certifications & Achievements:
       \n🏅 Academic Olympiads:
-      \n- Zero Olympiad (UN SDGs & climate action) - Semi-Final
-      \n- Bangladesh AI Olympiad - Semi-Final
-      \n- ICT Olympiad Bangladesh - Semi-Final
-      \n- Math Olympiad - Selective Round
+      \n- Bangladesh Mathematical Olympiad
+      \n- ICT Olympiad - Quarter Final
+      \n- National GK Olympiad
       
       \n📜 Professional Certifications:
-      \n- AI, Machine Learning & Cyber Security (Simplilearn)
-      \n- Complete Web Development (Programming Hero)
-      \n- Digital Marketing (HubSpot Academy)
-      \n- Corporate Skills (10 Minute School)`;
+      \n- Google IT Support
+      \n- Foundations of Cybersecurity
+      \n- Digital Marketing
+      \n- Python for Data Science and AI
+      \n- Introduction to Artificial Intelligence
+      \n- Machine Learning
+      \n- Complete Web Development
+      \n- Introduction to Python
+      
+      \n🌍 Climate & Sustainability:
+      \n- Gender equality and human rights in climate action and renewable energy
+      \n- Net Zero 101: What, Why and How
+      \n- Introduction to Sustainable Development in Practice
+      \n- The UN Climate Change process`;
     }
 
     // Contact information
@@ -193,7 +209,7 @@ export const LiveChat = () => {
       \n📧 Email: ridoan.zisan@gmail.com
       \n📞 Phone: +8801712525910
       \n📍 Location: Bogura, Bangladesh
-      \n🔗 LinkedIn: https://linkedin.com/in/ridoan2007
+      \n🔗 LinkedIn: https://linkedin.com/in/ridoan-zisan
       \n\nYou can also use the email button in the bottom right corner to send him a message directly.`;
     }
 
@@ -202,17 +218,21 @@ export const LiveChat = () => {
       lowerInput.includes('volunteer') ||
       lowerInput.includes('blood') ||
       lowerInput.includes('donation') ||
-      lowerInput.includes('bobdo')
+      lowerInput.includes('bobdo') ||
+      lowerInput.includes('youthhope')
     ) {
       return `Md Ridoan Mahmud Zisan's Volunteer Work:
-      \n🩸 Bogura Online Blood Donation Organization
+      \n🩸 Bogura Online Blood Donation Organisation
       \n- Role: Volunteer & Developer (2023-Present)
-      \n- Responsibilities:
-      \n  • Developed blood donor platform serving 68k+ members
-      \n  • Implemented digital system reducing response time by 40%
-      \n  • First aid and CPR training
-      \n  • Organizing donation campaigns
-      \n\n🔗 Blood Management App: https://bobdo.netlify.app`;
+      \n- Built blood donor platform serving 68k+ community members
+      \n- Implemented digital system reducing response time by 40%
+      \n- Link: https://bobdo.vercel.app
+      
+      \n💙 Youth Hope BD
+      \n- Role: Volunteer & Developer (2025-Present)
+      \n- Developed platform for youth development and social services
+      \n- Created tools for volunteer management and event organization
+      \n- Link: https://youthhope-bd.netlify.app`;
     }
 
     // Family information
@@ -227,7 +247,7 @@ export const LiveChat = () => {
       \n👨‍👩‍👧‍👦 Family Members:
       \n- Father: Md Rokibul Hasan Shekh
       \n- Mother: Mst. Zosna Khatun
-      \n- Siblings: 1 Younger Sister`;
+      \n- Siblings: Raisa Jannat (Younger)`;
     }
 
     // Basic greetings
