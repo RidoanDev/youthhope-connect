@@ -390,12 +390,27 @@ export const LiveChat = () => {
   };
 
   return (
-    <div
-      className="fixed bottom-6 right-6 flex flex-col items-end gap-2 z-[9999]"
-      ref={containerRef}
-    >
-      {/* Main Floating Button - Chat Icon */}
-      <motion.button
+    <>
+      {/* Backdrop Blur - Only visible when chat is open */}
+      <AnimatePresence>
+        {isChatOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[9998]"
+            onClick={() => setIsChatOpen(false)}
+          />
+        )}
+      </AnimatePresence>
+
+      <div
+        className="fixed bottom-6 right-6 flex flex-col items-end gap-2 z-[9999]"
+        ref={containerRef}
+      >
+        {/* Main Floating Button - Chat Icon */}
+        <motion.button
         onClick={() => setIsChatOpen(!isChatOpen)}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
@@ -571,7 +586,8 @@ export const LiveChat = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+      </div>
+    </>
   );
 };
 
