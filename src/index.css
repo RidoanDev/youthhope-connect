@@ -13,6 +13,30 @@
   pointer-events: auto;
 }
 
+/* Screenshot Protection Watermark */
+body::after {
+  content: 'Screenshots Restricted for Privacy and Copyright';
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  font-size: 3rem;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.03);
+  pointer-events: none;
+  z-index: 9998;
+  white-space: nowrap;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-family: 'Crimson Pro', serif;
+}
+
+@media (max-width: 768px) {
+  body::after {
+    font-size: 1.5rem;
+  }
+}
+
 /* Allow text selection for interactive elements */
 a, button, input, textarea, select {
   -webkit-user-select: auto;
@@ -159,22 +183,46 @@ body {
 
 @layer base {
   html {
-    font-family: 'Poppins', 'Noto Sans Bengali', system-ui, sans-serif;
+    font-family: 'Inter', 'Noto Serif Bengali', system-ui, sans-serif;
     scroll-behavior: smooth;
-    font-size: 16px;
+    font-size: 17px;
+    line-height: 1.7;
   }
 
   body {
     @apply bg-slate-50 text-slate-800;
     background: hsl(var(--surface));
     color: hsl(var(--text-primary));
-    font-family: 'Poppins', 'Noto Sans Bengali', system-ui, sans-serif;
+    font-family: 'Inter', 'Noto Serif Bengali', system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   * {
-    font-family: 'Poppins', 'Noto Sans Bengali', system-ui, sans-serif;
+    font-family: 'Inter', 'Noto Serif Bengali', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Crimson Pro', 'Noto Serif Bengali', serif;
+    font-weight: 700;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  p, li, span {
+    @apply text-base leading-relaxed;
   }
 }
 
@@ -206,8 +254,10 @@ body {
   }
   
   .section-header-title {
-    @apply text-2xl md:text-3xl lg:text-4xl font-bold leading-tight;
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold leading-tight;
+    font-family: 'Crimson Pro', 'Noto Serif Bengali', serif;
     color: hsl(var(--text-primary));
+    letter-spacing: -0.02em;
   }
   
   /* Premium Card System */
@@ -329,7 +379,8 @@ body {
   }
   
   .premium-subtitle {
-    @apply text-xl font-semibold mb-6;
+    @apply text-xl md:text-2xl font-semibold mb-6;
+    font-family: 'Crimson Pro', 'Noto Serif Bengali', serif;
     color: hsl(var(--text-primary));
   }
   
