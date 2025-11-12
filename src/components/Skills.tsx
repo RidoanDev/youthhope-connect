@@ -143,8 +143,8 @@ const Skills = ({ language }: SkillsProps) => {
         className="group"
       >
         <div className="flex justify-between items-center mb-3">
-          <span className="text-gray-700 group-hover:text-gray-900 transition-colors flex items-center gap-2 font-medium">
-            <ChevronRight size={14} className="text-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+          <span className="text-gray-800 group-hover:text-gray-900 transition-colors flex items-center gap-2 font-medium text-base md:text-lg">
+            <ChevronRight size={16} className="text-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity" />
             {skill.name[language]}
           </span>
           <div className="flex gap-1">
@@ -181,10 +181,10 @@ const Skills = ({ language }: SkillsProps) => {
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
-      className={`${section.color} ${section.hoverColor} p-3 rounded-lg hover:shadow-md transition-all duration-300 flex items-center gap-2`}
+      className={`${section.color} ${section.hoverColor} p-3 rounded-lg hover:shadow-md transition-all duration-200 flex items-center gap-2 text-base md:text-lg font-medium`}
     >
-      <ChevronRight size={14} className={`${section.iconColor} opacity-70`} />
-      {skill[language]}
+      <ChevronRight size={16} className={`${section.iconColor} opacity-70`} />
+      <span className="text-gray-800">{skill[language]}</span>
     </motion.div>
   );
 
@@ -204,9 +204,9 @@ const Skills = ({ language }: SkillsProps) => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <h3 className="font-bold text-lg flex items-center gap-3 mb-4 text-gray-700">
+            <h3 className="font-heading text-xl md:text-2xl font-semibold flex items-center gap-3 mb-5 text-gray-800">
               <div className="p-2 bg-blue-100 rounded-lg">
-                <Languages size={20} className="text-blue-600" />
+                <Languages size={22} className="text-blue-600" />
               </div>
               {skillsData.languages.title[language]}
             </h3>
@@ -228,14 +228,14 @@ const Skills = ({ language }: SkillsProps) => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: sectionIndex * 0.1 }}
             >
-              <h3 className="font-bold text-lg flex items-center gap-3 mb-4 text-gray-700">
+              <h3 className="font-heading text-xl md:text-2xl font-semibold flex items-center gap-3 mb-5 text-gray-800">
                 <div className={`p-2 ${section.color} rounded-lg`}>
                   {sectionIndex === 0 ? (
-                    <Target size={20} className={section.iconColor} />
+                    <Target size={22} className={section.iconColor} />
                   ) : sectionIndex === 1 ? (
-                    <MessageSquare size={20} className={section.iconColor} />
+                    <MessageSquare size={22} className={section.iconColor} />
                   ) : (
-                    <PlusCircle size={20} className={section.iconColor} />
+                    <PlusCircle size={22} className={section.iconColor} />
                   )}
                 </div>
                 {section.title[language]}

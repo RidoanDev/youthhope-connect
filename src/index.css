@@ -90,23 +90,38 @@ body::before {
 }
 
 /* Performance Optimizations */
-* {
-  scroll-behavior: smooth;
-}
-
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   overflow-x: hidden;
+  /* GPU acceleration for smooth scrolling */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 /* Smooth scrolling for all sections */
 .scroll-smooth {
   scroll-behavior: smooth;
+}
+
+/* Performance optimizations for animations */
+* {
+  /* Only use will-change on interactive elements */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000;
+  perspective: 1000;
+}
+
+/* Optimize layout containment for better performance */
+section, article, div[class*="premium"] {
+  contain: layout style;
 }
 
 :root {
@@ -205,24 +220,24 @@ body {
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Crimson Pro', 'Noto Serif Bengali', serif;
     font-weight: 700;
-    line-height: 1.3;
-    letter-spacing: -0.02em;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
   }
 
   h1 {
-    @apply text-4xl md:text-5xl;
+    @apply text-4xl md:text-5xl lg:text-6xl;
   }
 
   h2 {
-    @apply text-3xl md:text-4xl;
+    @apply text-3xl md:text-4xl lg:text-5xl;
   }
 
   h3 {
-    @apply text-2xl md:text-3xl;
+    @apply text-2xl md:text-3xl lg:text-4xl;
   }
 
   p, li, span {
-    @apply text-base leading-relaxed;
+    @apply text-base md:text-lg leading-relaxed;
   }
 }
 
@@ -265,12 +280,13 @@ body {
     @apply bg-white rounded-xl border border-gray-200 overflow-hidden relative;
     background: var(--gradient-surface);
     box-shadow: var(--shadow-card);
-    transition: var(--transition-spring);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+    will-change: transform;
   }
   
   .premium-card:hover {
     box-shadow: var(--shadow-elevated);
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
     border-color: hsl(var(--primary) / 0.15);
   }
   
@@ -300,10 +316,12 @@ body {
   
   /* Enhanced Button System */
   .btn-primary {
-    @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2 relative overflow-hidden;
+    @apply px-6 py-3 rounded-lg font-medium flex items-center justify-center gap-2 relative overflow-hidden;
     background: var(--gradient-primary);
     color: white;
     box-shadow: var(--shadow-card);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    will-change: transform;
   }
   
   .btn-primary::before {
@@ -314,11 +332,11 @@ body {
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-    transition: var(--transition-smooth);
+    transition: left 0.3s ease;
   }
   
   .btn-primary:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
     box-shadow: var(--shadow-elevated);
   }
   
@@ -327,27 +345,31 @@ body {
   }
   
   .btn-secondary {
-    @apply px-6 py-3 rounded-lg font-medium border transition-all duration-300 flex items-center justify-center gap-2 relative overflow-hidden;
+    @apply px-6 py-3 rounded-lg font-medium border flex items-center justify-center gap-2 relative overflow-hidden;
     background: hsl(var(--surface-elevated));
     border-color: hsl(var(--primary));
     color: hsl(var(--primary));
+    transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    will-change: transform;
   }
   
   .btn-secondary:hover {
     background: hsl(var(--primary-light));
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
     box-shadow: var(--shadow-card);
   }
   
   .btn-accent {
-    @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center justify-center gap-2;
+    @apply px-6 py-3 rounded-lg font-medium flex items-center justify-center gap-2;
     background: var(--gradient-accent);
     color: white;
     box-shadow: var(--shadow-card);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    will-change: transform;
   }
   
   .btn-accent:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
     box-shadow: var(--shadow-elevated);
   }
   
@@ -405,11 +427,12 @@ body {
   
   /* Professional Hover Effects */
   .hover-lift-professional {
-    transition: var(--transition-smooth);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    will-change: transform;
   }
   
   .hover-lift-professional:hover {
-    transform: translateY(-2px);
+    transform: translateY(-2px) translateZ(0);
     box-shadow: var(--shadow-elevated);
   }
   
