@@ -110,7 +110,7 @@ const Navigation = ({
               className="lg:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 focus:outline-none transition-colors duration-150"
               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             >
-              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
+              {isMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           )}
 
@@ -153,7 +153,7 @@ const Navigation = ({
           <button
             onClick={() => setLanguage(language === 'en' ? 'bn' : 'en')}
             className={cn(
-              'p-2 rounded-full transition-all duration-150',
+              'p-2 rounded-lg transition-all duration-150',
               'text-purple-600 hover:text-purple-700',
               'border border-purple-200 hover:border-purple-300',
               'focus:outline-none focus:ring-2 focus:ring-purple-200',

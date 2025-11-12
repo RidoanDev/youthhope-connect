@@ -389,14 +389,14 @@ const CertificateSlider = ({ certificates, language }: CertificateSliderProps) =
                 {getVisibleDots().map((index) => (
                   <button
                     key={index}
-                    className={`rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 ${
+                    className={`rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 ${
                       index === currentIndex 
                         ? 'bg-green-600' 
                         : 'bg-gray-300 hover:bg-gray-400'
                     }`}
                     style={{
-                      width: `${getDotScale(index) * 5}px`,
-                      height: `${getDotScale(index) * 5}px`,
+                      width: `${getDotScale(index) * 6}px`,
+                      height: `${getDotScale(index) * 6}px`,
                       opacity: getDotOpacity(index),
                       transform: `scale(${getDotScale(index)})`,
                     }}

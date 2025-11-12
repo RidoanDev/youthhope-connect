@@ -81,13 +81,13 @@ const Profile = ({
               transition={{ duration: 0.8, delay: 0.2 }}
             >
               <div>
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-3 text-slate-800">
+                <h1 className="text-3xl md:text-4xl font-bold mb-3 text-slate-800">
                   {content[language].name}
                 </h1>
                 <p className="text-lg md:text-xl mb-4 text-slate-600 font-medium">
                   {content[language].role}
                 </p>
-                <p className="text-base md:text-lg max-w-2xl mx-auto lg:mx-0 mb-6 text-slate-600 leading-relaxed">
+                <p className="text-base max-w-2xl mx-auto lg:mx-0 mb-6 text-slate-600 leading-relaxed">
                   {content[language].statement}
                 </p>
               </div>

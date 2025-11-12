@@ -3,10 +3,6 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    fontFamily: {
-      'heading': ['Crimson Pro', 'Noto Serif Bengali', 'serif'],
-      'body': ['Inter', 'Noto Serif Bengali', 'sans-serif'],
-    },
     extend: {
       colors: {
         primary: {
