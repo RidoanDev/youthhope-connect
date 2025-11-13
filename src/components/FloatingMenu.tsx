@@ -347,20 +347,12 @@ export const LiveChat = () => {
       }
     };
 
-    const handleScroll = () => {
-      if (isChatOpen) {
-        setIsChatOpen(false);
-      }
-    };
-
     if (isChatOpen) {
       document.addEventListener('mousedown', handleClickOutside);
-      window.addEventListener('scroll', handleScroll, true);
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
-      window.removeEventListener('scroll', handleScroll, true);
     };
   }, [isChatOpen]);
 
@@ -456,9 +448,44 @@ export const LiveChat = () => {
     }
   };
 
-  const handleKeywordClick = (keyword: string) => {
+  const handleKeywordClick = async (keyword: string) => {
     setInput(keyword);
-    handleSubmit(new Event('submit') as any);
+    
+    // Create a user message
+    const userMessage: Message = {
+      id: Date.now().toString(),
+      content: keyword,
+      role: 'user',
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+
+    try {
+      const response = await callAPI(keyword);
+      const typedResponse = await typeMessage(response);
+
+      const assistantMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: typedResponse,
+        role: 'assistant',
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, assistantMessage]);
+      setTypingText('');
+    } catch (error) {
+      const errorMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        content: 'Sorry, there was an error processing your request.',
+        role: 'assistant',
+        timestamp: new Date(),
+      };
+      setMessages((prev) => [...prev, errorMessage]);
+      setTypingText('');
+    } finally {
+      setIsLoading(false);
+      inputRef.current?.focus();
+    }
   };
 
   const renderMessageContent = (content: string) => {
@@ -668,11 +695,11 @@ export const LiveChat = () => {
                 <motion.button
                   type="submit"
                   disabled={!input.trim() || isLoading || !!typingText}
-                  className="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-full w-8 h-8 hover:from-purple-600 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shadow-md flex-shrink-0"
+                  className="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-full w-8 h-8 sm:w-9 sm:h-9 hover:from-purple-600 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shadow-md flex-shrink-0"
                   whileHover={!isLoading && input.trim() && !typingText ? { scale: 1.05 } : {}}
                   whileTap={!isLoading && input.trim() && !typingText ? { scale: 0.95 } : {}}
                 >
-                  <Send className="w-3.5 h-3.5" />
+                  <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   <span className="sr-only">Send</span>
                 </motion.button>
               </form>
