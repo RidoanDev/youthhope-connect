@@ -449,8 +449,7 @@ export const LiveChat = () => {
   };
 
   const handleKeywordClick = async (keyword: string) => {
-    setInput(keyword);
-    
+    // Directly show result without pasting in text box
     // Create a user message
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -582,7 +581,7 @@ export const LiveChat = () => {
                       <Ghost className="w-12 h-12 text-purple-600" />
                     </div>
                   </motion.div>
-                  <p className="text-lg font-semibold text-gray-800 mb-2">Hello, I'm Ghost AI 👋</p>
+                  <p className="text-lg font-semibold text-gray-800 mb-2">I'm Ghost AI 👋</p>
                   <p className="text-sm text-gray-600 mb-4 px-4">
                     Ask me about Md Ridoan Mahmud Zisan
                   </p>
@@ -695,11 +694,11 @@ export const LiveChat = () => {
                 <motion.button
                   type="submit"
                   disabled={!input.trim() || isLoading || !!typingText}
-                  className="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-full w-8 h-8 sm:w-9 sm:h-9 hover:from-purple-600 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shadow-md flex-shrink-0"
+                  className="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-full w-9 h-9 hover:from-purple-600 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shadow-md flex-shrink-0"
                   whileHover={!isLoading && input.trim() && !typingText ? { scale: 1.05 } : {}}
                   whileTap={!isLoading && input.trim() && !typingText ? { scale: 0.95 } : {}}
                 >
-                  <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  <Send className="w-4 h-4" />
                   <span className="sr-only">Send</span>
                 </motion.button>
               </form>
