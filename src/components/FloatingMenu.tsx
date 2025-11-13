@@ -20,22 +20,14 @@ export const LiveChat = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [isGhostHovering, setIsGhostHovering] = useState(false);
   const [typingText, setTypingText] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const chatWindowRef = useRef<HTMLDivElement>(null);
 
-  // Ghost floating animation variants
+  // Ghost floating animation variants (for welcome screen only)
   const ghostVariants = {
-    hover: {
-      y: [0, -10, 0, -5, 0],
-      transition: {
-        duration: 2,
-        repeat: Infinity,
-        ease: 'easeInOut',
-      },
-    },
     float: {
       y: [0, -15, 0],
       transition: {
@@ -61,16 +53,19 @@ export const LiveChat = () => {
 
   // Enhanced constant replies with more information
   const getConstantReply = (userInput: string): string | null => {
-    const lowerInput = userInput.toLowerCase();
+    const lowerInput = userInput.toLowerCase().trim();
 
-    // Developer/Creator information
+    // Profile/Developer/Creator information
     if (
+      lowerInput.includes('profile') ||
       lowerInput.includes('developer') ||
       lowerInput.includes('creator') ||
       lowerInput.includes('who made you') ||
       lowerInput.includes('your creator') ||
       lowerInput.includes('zisan') ||
-      lowerInput.includes('ridoan')
+      lowerInput.includes('ridoan') ||
+      lowerInput.includes('about') ||
+      lowerInput === 'profile'
     ) {
       return `I was created by Md Ridoan Mahmud Zisan, a Self-Driven Web Developer & IT Specialist from Bogura, Bangladesh. 
       \n\nHere's some info about him:
@@ -140,7 +135,8 @@ export const LiveChat = () => {
       lowerInput.includes('project') ||
       lowerInput.includes('work') ||
       lowerInput.includes('build') ||
-      lowerInput.includes('developed')
+      lowerInput.includes('developed') ||
+      lowerInput === 'projects'
     ) {
       return `Md Ridoan Mahmud Zisan's Notable Projects:
       \n🩸 BOBDO
@@ -169,7 +165,8 @@ export const LiveChat = () => {
       lowerInput.includes('certification') ||
       lowerInput.includes('achievement') ||
       lowerInput.includes('award') ||
-      lowerInput.includes('olympiad')
+      lowerInput.includes('olympiad') ||
+      lowerInput === 'certificates'
     ) {
       return `Md Ridoan Mahmud Zisan's Certifications & Achievements:
       \n🏅 Academic Olympiads:
@@ -248,13 +245,45 @@ export const LiveChat = () => {
       \n- Siblings: Raisa Jannat (Younger)`;
     }
 
+    // Research information
+    if (
+      lowerInput.includes('research') ||
+      lowerInput === 'research'
+    ) {
+      return `Md Ridoan Mahmud Zisan's Research Work:
+      \n📚 He has conducted research in various fields including web development, AI, and social impact projects.
+      \nVisit the Research page on his website to learn more about his research publications and ongoing projects.`;
+    }
+
+    // Blog information
+    if (
+      lowerInput.includes('blog') ||
+      lowerInput === 'blog'
+    ) {
+      return `Md Ridoan Mahmud Zisan's Blog:
+      \n✍️ He writes about technology, web development, AI, and his experiences.
+      \nVisit the Blog page on his website to read his latest articles and insights.`;
+    }
+
+    // Social media information
+    if (
+      lowerInput.includes('social') ||
+      lowerInput.includes('social media') ||
+      lowerInput === 'social media'
+    ) {
+      return `Connect with Md Ridoan Mahmud Zisan on social media:
+      \n🔗 LinkedIn: https://linkedin.com/in/ridoan-zisan
+      \n💼 You can also find him on various professional platforms.
+      \n📧 For direct contact: ridoan.zisan@gmail.com`;
+    }
+
     // Basic greetings
     if (
       lowerInput.includes('hello') ||
       lowerInput.includes('hi') ||
       lowerInput.includes('hey')
     ) {
-      return "Hello there! I'm Ghost AI, here to tell you about Md Ridoan Mahmud Zisan. How can I help you today?\n\nYou can ask about:\n- His education\n- Skills\n- Projects\n- Certifications\n- Volunteer work\n- Contact information\n- Or anything else!";
+      return "Hello there! I'm Ghost AI, here to tell you about Md Ridoan Mahmud Zisan. How can I help you today?\n\nYou can ask about:\n- Profile\n- Education\n- Experience\n- Projects\n- Certificates\n- Skills\n- Family\n- Contact\n- Research\n- Blog\n- Social Media";
     }
 
     // Thank you responses
@@ -294,7 +323,45 @@ export const LiveChat = () => {
   useEffect(() => {
     if (isChatOpen) {
       inputRef.current?.focus();
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
     }
+    
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isChatOpen]);
+
+  // Click outside handler
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isChatOpen &&
+        chatWindowRef.current &&
+        !chatWindowRef.current.contains(event.target as Node) &&
+        containerRef.current &&
+        !containerRef.current.contains(event.target as Node)
+      ) {
+        setIsChatOpen(false);
+      }
+    };
+
+    const handleScroll = () => {
+      if (isChatOpen) {
+        setIsChatOpen(false);
+      }
+    };
+
+    if (isChatOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      window.addEventListener('scroll', handleScroll, true);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('scroll', handleScroll, true);
+    };
   }, [isChatOpen]);
 
   useEffect(() => {
@@ -389,11 +456,51 @@ export const LiveChat = () => {
     }
   };
 
+  const handleKeywordClick = (keyword: string) => {
+    setInput(keyword);
+    handleSubmit(new Event('submit') as any);
+  };
+
+  const renderMessageContent = (content: string) => {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const parts = content.split(urlRegex);
+    
+    return parts.map((part, index) => {
+      if (part.match(urlRegex)) {
+        return (
+          <a
+            key={index}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:text-blue-600 underline"
+          >
+            {part}
+          </a>
+        );
+      }
+      return <span key={index}>{part}</span>;
+    });
+  };
+
   return (
-    <div
-      className="fixed bottom-6 right-6 flex flex-col items-end gap-2 z-[9999]"
-      ref={containerRef}
-    >
+    <>
+      {/* Backdrop blur overlay */}
+      <AnimatePresence>
+        {isChatOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/20 backdrop-blur-sm z-[9998]"
+          />
+        )}
+      </AnimatePresence>
+
+      <div
+        className="fixed bottom-6 right-6 flex flex-col items-end gap-2 z-[9999]"
+        ref={containerRef}
+      >
       {/* Main Floating Button - Chat Icon */}
       <motion.button
         onClick={() => setIsChatOpen(!isChatOpen)}
@@ -409,6 +516,7 @@ export const LiveChat = () => {
       <AnimatePresence>
         {isChatOpen && (
           <motion.div
+            ref={chatWindowRef}
             className="fixed bottom-20 right-6 w-[350px] sm:w-[400px] max-w-[calc(100vw-3rem)] bg-white rounded-2xl shadow-2xl z-[9999] flex flex-col max-h-[500px] border border-purple-100"
             initial={{ opacity: 0, scale: 0.9, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -418,15 +526,9 @@ export const LiveChat = () => {
             {/* Chat Header */}
             <div className="bg-gradient-to-r from-purple-500 to-purple-600 text-white p-4 rounded-t-2xl flex justify-between items-center">
               <div className="flex items-center gap-3">
-                <motion.div
-                  variants={ghostVariants}
-                  animate={isGhostHovering ? 'hover' : 'float'}
-                  onMouseEnter={() => setIsGhostHovering(true)}
-                  onMouseLeave={() => setIsGhostHovering(false)}
-                  className="bg-white/20 p-2 rounded-full"
-                >
+                <div className="bg-white/20 p-2 rounded-full">
                   <Ghost className="w-5 h-5" />
-                </motion.div>
+                </div>
                 <h2 className="font-semibold text-lg" style={{ fontFamily: "'Poppins', 'Inter', sans-serif" }}>Ghost AI</h2>
               </div>
               <button
@@ -453,16 +555,23 @@ export const LiveChat = () => {
                       <Ghost className="w-12 h-12 text-purple-600" />
                     </div>
                   </motion.div>
-                  <p className="text-lg font-semibold text-gray-800 mb-2">Hello! 👋</p>
+                  <p className="text-lg font-semibold text-gray-800 mb-2">Hello, I'm Ghost AI 👋</p>
                   <p className="text-sm text-gray-600 mb-4 px-4">
-                    Ask me about Md Ridoan Mahmud Zisan - his education, skills,
-                    projects, or anything else!
+                    Ask me about Md Ridoan Mahmud Zisan
                   </p>
-                  <div className="mt-4 text-xs text-gray-500 space-y-1 px-4">
-                    <p className="font-medium text-purple-600">Try asking:</p>
-                    <p className="bg-white rounded-lg p-2 shadow-sm">"What are his skills?"</p>
-                    <p className="bg-white rounded-lg p-2 shadow-sm">"Tell me about his education"</p>
-                    <p className="bg-white rounded-lg p-2 shadow-sm">"Show me his projects"</p>
+                  <div className="mt-4 text-xs text-gray-600 space-y-2 px-4">
+                    <p className="font-medium text-purple-600 mb-2">Try asking:</p>
+                    <div className="flex flex-wrap gap-2">
+                      {['profile', 'education', 'experience', 'projects', 'certificates', 'skills', 'family', 'contact', 'research', 'blog', 'social media'].map((keyword) => (
+                        <button
+                          key={keyword}
+                          onClick={() => handleKeywordClick(keyword)}
+                          className="bg-white hover:bg-purple-50 text-purple-600 rounded-full px-3 py-1 shadow-sm border border-purple-200 hover:border-purple-300 transition-all text-xs font-medium capitalize"
+                        >
+                          {keyword}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 </motion.div>
               )}
@@ -495,7 +604,7 @@ export const LiveChat = () => {
                     style={{ fontFamily: "'Poppins', 'Inter', 'Noto Sans Bengali', sans-serif" }}
                   >
                     <p className="text-sm whitespace-pre-wrap leading-relaxed">
-                      {message.content}
+                      {renderMessageContent(message.content)}
                     </p>
                     <p className={`text-xs mt-1 ${message.role === 'user' ? 'text-purple-100' : 'text-gray-500'}`}>
                       {format(message.timestamp, 'HH:mm')}
@@ -544,26 +653,26 @@ export const LiveChat = () => {
             </div>
 
             {/* Input Form */}
-            <div className="border-t border-purple-100 p-4 bg-white rounded-b-2xl">
-              <form onSubmit={handleSubmit} className="flex gap-2">
+            <div className="border-t border-purple-100 p-3 bg-white rounded-b-2xl">
+              <form onSubmit={handleSubmit} className="flex gap-2 items-center">
                 <input
                   ref={inputRef}
                   type="text"
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Ask about Md Ridoan Mahmud Zisan..."
+                  placeholder="Ask about Md Ridoan..."
                   disabled={isLoading || !!typingText}
-                  className="flex-1 rounded-full border border-purple-200 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                  className="flex-1 rounded-full border border-purple-200 px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-purple-300 focus:border-transparent disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                   style={{ fontFamily: "'Poppins', 'Inter', 'Noto Sans Bengali', sans-serif" }}
                 />
                 <motion.button
                   type="submit"
                   disabled={!input.trim() || isLoading || !!typingText}
-                  className="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-full p-2 hover:from-purple-600 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shadow-md"
+                  className="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-full w-8 h-8 hover:from-purple-600 hover:to-purple-700 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shadow-md flex-shrink-0"
                   whileHover={!isLoading && input.trim() && !typingText ? { scale: 1.05 } : {}}
                   whileTap={!isLoading && input.trim() && !typingText ? { scale: 0.95 } : {}}
                 >
-                  <Send className="w-4 h-4" />
+                  <Send className="w-3.5 h-3.5" />
                   <span className="sr-only">Send</span>
                 </motion.button>
               </form>
@@ -571,7 +680,8 @@ export const LiveChat = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </div>
+      </div>
+    </>
   );
 };
 

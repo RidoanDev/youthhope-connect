@@ -31,11 +31,36 @@ const Navigation = ({
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
+      if (isMenuOpen) {
+        setIsMenuOpen(false);
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [isMenuOpen]);
+
+  // Click outside handler for mobile menu
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (isMenuOpen && !target.closest('nav')) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -84,15 +109,21 @@ const Navigation = ({
   const showHomeButton = currentPage === 'research' || currentPage === 'blog';
 
   return (
-    <nav
-      className={cn(
-        'fixed top-0 w-full z-50 transition-all duration-200',
-        'backdrop-blur-md border-b',
-        isScrolled 
-          ? 'bg-white/95 border-gray-200/80 shadow-sm' 
-          : 'bg-white/90 border-gray-200/50'
+    <>
+      {/* Backdrop blur overlay for mobile menu */}
+      {isMenuOpen && (
+        <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40" />
       )}
-    >
+      
+      <nav
+        className={cn(
+          'fixed top-0 w-full z-50 transition-all duration-200',
+          'backdrop-blur-md border-b',
+          isScrolled 
+            ? 'bg-white/95 border-gray-200/80 shadow-sm' 
+            : 'bg-white/90 border-gray-200/50'
+        )}
+      >
       <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
         <div className="flex justify-between items-center h-14 sm:h-16">
           {/* Left side - Home button for Research/Blog pages or Menu button for home */}
@@ -199,6 +230,7 @@ const Navigation = ({
         )}
       </div>
     </nav>
+    </>
   );
 };
 
